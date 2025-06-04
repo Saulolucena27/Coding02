@@ -1,3 +1,6 @@
+import {endereco} from './endereco';
+import { telefone } from './telefone';
+
 export class funcionario {
     private cpf: string;
     private nome: string;
@@ -8,6 +11,8 @@ export class funcionario {
     private salario: number;
     private status: string;
     private fg?: number;
+    private endereco: endereco;
+    private telefones: telefone[] = [];
 
     constructor(
             cpf: string,
@@ -16,6 +21,8 @@ export class funcionario {
             dataNascimento: Date,
             email: string,
             salario: number,
+            endereco: endereco,
+            telefones: telefone[] = [],
             status: string,
             nomeSocial?: string,
             fg?: number,
@@ -27,8 +34,10 @@ export class funcionario {
         this.email = email;
         this.salario = salario;
         this.status = status;
+        this.telefones = telefones;
         this.nomeSocial = nomeSocial;
         this.fg = fg;
+        this.endereco = endereco;
     }
     public getCpf(): string {
         return this.cpf;
@@ -57,6 +66,12 @@ export class funcionario {
     public getDataNascimento(): Date {
         return this.dataNascimento;
     }
+    public getEndereco(): endereco {
+        return this.endereco;
+    }
+    public setEndereco(endereco: endereco): void {
+        this.endereco = endereco;
+    }   
     public setDataNascimento(dataNascimento: Date): void {
         this.dataNascimento = dataNascimento;
     }
@@ -85,7 +100,7 @@ export class funcionario {
         this.fg = fg;
     }
     public toString(): string {
-        return `Funcionario: ${this.nome}, CPF: ${this.cpf}, Gênero: ${this.genero}, Data de Nascimento: ${this.dataNascimento.toLocaleDateString()}, Nome Social: ${this.nomeSocial ?? 'N/A'}, Email: ${this.email}, Salário: R$${this.salario.toFixed(2)}, Status: ${this.status}, FG: ${this.fg ?? 'N/A'}`;
+        return `Funcionario: ${this.nome}, CPF: ${this.cpf}, Gênero: ${this.genero}, Data de Nascimento: ${this.dataNascimento.toLocaleDateString()}, Nome Social: ${this.nomeSocial ?? 'N/A'}, Email: ${this.email}, Salário: R$${this.salario.toFixed(2)}, Status: ${this.status}, Endereco: ${this.endereco.toString()}, FG: ${this.fg ?? 'N/A'}`;
     }
     public toJSON(): object {
         return {
@@ -97,7 +112,8 @@ export class funcionario {
             email: this.email,
             salario: this.salario,
             status: this.status,
-            fg: this.fg
+            fg: this.fg,
+            endereco: this.endereco.toJSON()
         };
     }
 
