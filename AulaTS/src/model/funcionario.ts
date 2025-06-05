@@ -100,7 +100,7 @@ export class funcionario {
         this.fg = fg;
     }
     public toString(): string {
-        return `Funcionario: ${this.nome}, CPF: ${this.cpf}, Gênero: ${this.genero}, Data de Nascimento: ${this.dataNascimento.toLocaleDateString()}, Nome Social: ${this.nomeSocial ?? 'N/A'}, Email: ${this.email}, Salário: R$${this.salario.toFixed(2)}, Status: ${this.status}, Endereco: ${this.endereco.toString()}, FG: ${this.fg ?? 'N/A'}`;
+        return `Funcionario: ${this.nome}, CPF: ${this.cpf}, Gênero: ${this.genero}, Data de Nascimento: ${this.dataNascimento.toLocaleDateString()}, Nome Social: ${this.nomeSocial ?? 'N/A'}, Email: ${this.email}, Salário: R$${this.salario.toFixed(2)}, Status: ${this.status}, Endereco: ${this.endereco.toString()}, Telefone: ${this.telefones.map(t => t.getNumero()).join(", ")}, FG: ${this.fg ?? 'N/A'}`;
     }
     public toJSON(): object {
         return {
@@ -117,4 +117,21 @@ export class funcionario {
         };
     }
 
+    public addTelefone(telefone: telefone): void {
+        this.telefones.push(telefone);
+    }
+
+    public addNumTelefone(numero: string): void {
+        this.telefones.push(new telefone(numero));
+    }
+
+    public removerTelefone(numero: string): void {
+            const index = this.telefones.findIndex(t => t.getNumero() === numero);
+            if (index !== -1) {
+                this.telefones.splice(index, 1);
+            }
+        }
+    public removerNumTelefone(numero: string): void {
+        this.telefones = this.telefones.filter(telefone => telefone.getNumero() !== numero);
+    }
 }
